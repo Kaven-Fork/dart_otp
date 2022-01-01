@@ -44,7 +44,7 @@ void main() {
   test(
       '[TOTP] Should generate, verify hard coded date time and compare to current time (should be false)',
       () {
-    var time = DateTime.parse('2019-01-01 00:00:00.000'+ 'Z');
+    var time = DateTime.parse('2019-01-01 00:00:00.000' + 'Z');
     var otpValue = totp.value(date: time);
 
     expect(otpValue, '793957');

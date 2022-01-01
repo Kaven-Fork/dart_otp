@@ -32,9 +32,11 @@ packages:
   base32:
     dependency: "direct main"
     description:
-      name: base32
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: a829edbab23f67f76e8677e810dad47f3399d840
+      url: "https://github.com/Kaven-Fork/dart-base32"
+    source: git
     version: "2.1.1"
   boolean_selector:
     dependency: transitive
@@ -170,7 +172,7 @@ packages:
     source: hosted
     version: "0.12.10"
   meta:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: meta
       url: "https://pub.flutter-io.cn"

@@ -42,7 +42,7 @@ abstract class OTP {
         assert(digits != null),
         assert(algorithm != null),
         assert(digits >= 6 && digits <= 8) {
-    this.secret = secret;
+    this.secret = tryValidBase32(secret);
     this.digits = digits;
     this.algorithm = algorithm;
   }
