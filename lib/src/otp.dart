@@ -13,13 +13,13 @@ import 'package:dart_otp/src/utils/otp_util.dart';
 
 abstract class OTP {
   /// The length of the one-time password, between 6 and 8.
-  int digits;
+  int? digits;
 
   /// The Base32 secret key used to generate the one-time password.
-  String secret;
+  String? secret;
 
   /// The crypto algorithm used on HMAC encoding.
-  OTPAlgorithm algorithm;
+  OTPAlgorithm? algorithm;
 
   /// The type of the token.
   OTPType get type;
@@ -35,7 +35,7 @@ abstract class OTP {
   /// Will throw an exception if the line above isn't satisfied.
   ///
   OTP(
-      {String secret,
+      {required String secret,
       int digits = 6,
       OTPAlgorithm algorithm = OTPAlgorithm.SHA1})
       : assert(secret != null),
@@ -55,16 +55,17 @@ abstract class OTP {
   /// All parameters are mandatory however [algorithm] have
   /// a default value, so can be ignored.
   ///
-  String generateOTP({int input, OTPAlgorithm algorithm = OTPAlgorithm.SHA1}) {
+  String generateOTP({int? input, OTPAlgorithm algorithm = OTPAlgorithm.SHA1}) {
     /// base32 decode the secret
-    var hmacKey = base32.decode(this.secret);
+    var hmacKey = base32.decode(this.secret!);
 
     /// initial the HMAC-SHA1 object
     var hmacSha =
-        AlgorithmUtil.createHmacFor(algorithm: algorithm, key: hmacKey);
+        AlgorithmUtil.createHmacFor(algorithm: algorithm, key: hmacKey)!;
 
     /// get hmac answer
-    var hmac = hmacSha.convert(Util.intToBytelist(input: input)).bytes;
+    var hmac =
+        hmacSha.convert(Util.intToBytelist(input: input) as List<int>).bytes;
 
     /// calculate the init offset
     int offset = hmac[hmac.length - 1] & 0xf;
@@ -76,8 +77,8 @@ abstract class OTP {
         (hmac[offset + 3] & 0xff));
 
     /// get the initial string code
-    var strCode = (code % pow(10, this.digits)).toString();
-    strCode = strCode.padLeft(this.digits, '0');
+    var strCode = (code % pow(10, this.digits!)).toString();
+    strCode = strCode.padLeft(this.digits!, '0');
 
     return strCode;
   }
@@ -88,7 +89,7 @@ abstract class OTP {
   /// Use [issuer] and [account] parameters to specify the token information.
   /// All the remaining OTP fields will be exported.
   ///
-  String generateUrl({String issuer, String account}) {
+  String generateUrl({String? issuer, String? account}) {
     final _secret = this.secret;
     final _type = OTPUtil.otpTypeValue(type: type);
     final _account = Uri.encodeComponent(account ?? '');

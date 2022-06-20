@@ -11,7 +11,7 @@ import 'package:dart_otp/src/components/otp_algorithm.dart';
 /// HOTP class will generate the OTP (One Time Password) object with given counter.
 class HOTP extends OTP {
   /// The counter value for one-time password.
-  int counter;
+  int? counter;
 
   @override
   OTPType get type => OTPType.HOTP;
@@ -28,7 +28,7 @@ class HOTP extends OTP {
   /// Will throw an exception if the line above isn't satisfied.
   ///
   HOTP(
-      {String secret,
+      {required String secret,
       int counter = 0,
       int digits = 6,
       OTPAlgorithm algorithm = OTPAlgorithm.SHA1})
@@ -44,7 +44,7 @@ class HOTP extends OTP {
   /// hotp.at(counter: 0); // => 432143
   /// ```
   ///
-  String at({int counter}) {
+  String? at({int? counter}) {
     if (counter == null || counter < 0) {
       return null;
     }
@@ -66,12 +66,12 @@ class HOTP extends OTP {
   /// hotp.verify(otp: 432143, counter: 10); // => false
   /// ```
   ///
-  bool verify({String otp, int counter}) {
+  bool verify({String? otp, int? counter}) {
     if (otp == null || counter == null) {
       return false;
     }
 
-    String otpCount = this.at(counter: counter);
+    String? otpCount = this.at(counter: counter);
     return otp == otpCount;
   }
 }

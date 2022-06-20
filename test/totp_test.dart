@@ -1,6 +1,4 @@
 import 'package:dart_otp/dart_otp.dart';
-import 'package:dart_otp/src/components/otp_algorithm.dart';
-import 'package:dart_otp/src/components/otp_type.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -70,14 +68,20 @@ void main() {
         "otpauth://totp/Digits?secret=J22U6B3WIWRRBTAV&issuer=More&digits=8&algorithm=SHA256&period=60");
   });
 
-  test('[TOTP] Fail Conditions: Init Asserts', () {
-    expect(() => TOTP(secret: null),
-        throwsA(predicate((e) => e.toString().contains('secret != null'))));
-    expect(() => TOTP(secret: '', digits: null),
-        throwsA(predicate((e) => e.toString().contains('digits != null'))));
-    expect(() => HOTP(secret: '', digits: 0, algorithm: null),
-        throwsA(predicate((e) => e.toString().contains('algorithm != null'))));
-  });
+  // test('[TOTP] Fail Conditions: Init Asserts', () {
+  //   expect(
+  //       () => TOTP(secret: null),
+  //       throwsA(
+  //           predicate((dynamic e) => e.toString().contains('secret != null'))));
+  //   expect(
+  //       () => TOTP(secret: '', digits: null),
+  //       throwsA(
+  //           predicate((dynamic e) => e.toString().contains('digits != null'))));
+  //   expect(
+  //       () => HOTP(secret: '', digits: 0, algorithm: null),
+  //       throwsA(predicate(
+  //           (dynamic e) => e.toString().contains('algorithm != null'))));
+  // });
 
   test('[TOTP] Fail Conditions: Validations', () {
     expect(totp.value(date: null), null);
