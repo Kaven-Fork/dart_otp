@@ -38,9 +38,10 @@ abstract class OTP {
       {required String secret,
       int digits = 6,
       OTPAlgorithm algorithm = OTPAlgorithm.SHA1})
-      : assert(secret != null),
-        assert(digits != null),
-        assert(algorithm != null),
+      :
+        // assert(secret != null),
+        // assert(digits != null),
+        // assert(algorithm != null),
         assert(digits >= 6 && digits <= 8) {
     this.secret = tryValidBase32(secret);
     this.digits = digits;
